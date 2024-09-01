@@ -4,16 +4,17 @@ const Schema = mongoose.Schema;
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true});
 
-//Create Person Schema
+// Task 1: Create Person Schema
 const personSchema = new Schema({
   name: { type: String, required: true },
   age: Number,
   favoriteFoods: [String]
 })
 
-//Create Person model from the schema
+// Task 2: Create Person model from the schema
 const Person = mongoose.model("Person", personSchema);
 
+// Task 3:
 const createAndSavePerson = (done) => {
   const canNgo = new Person ({
     name: "Can Ngo",
@@ -26,8 +27,12 @@ const createAndSavePerson = (done) => {
   })
 };
 
+// Task 4:
 const createManyPeople = (arrayOfPeople, done) => {
-  done(null /*, data*/);
+  Person.create(arrayOfPeople, function(err, data){
+    if (err) return console.log(err);
+    done(null , data);
+  })
 };
 
 const findPeopleByName = (personName, done) => {
