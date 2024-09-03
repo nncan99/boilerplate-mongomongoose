@@ -102,10 +102,17 @@ const removeManyPeople = (done) => {
   })
 };
 
+// Task 12:
 const queryChain = (done) => {
   const foodToSearch = "burrito";
-
-  done(null /*, data*/);
+  Person.find({ favoriteFoods: foodToSearch })
+    .sort({ name: 1 }) //Sort by name ascending
+    .select({ age: 0 }) //Hide age field
+    .limit(2) //Limit to 2 documents
+    .exec(function (err, data) {
+      if (err) return console.error(err);
+      done(null, data);
+    });
 };
 
 /** **Well Done !!**
